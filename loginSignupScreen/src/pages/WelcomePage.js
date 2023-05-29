@@ -47,15 +47,16 @@ const styles = StyleSheet.create({
     },
     inner_container: {
         alignItems: "center",
-        paddingHorizontal: 30,
+        paddingHorizontal: 5,
     },
     img: {
-        width: 210,
-        height: 210,
-        marginVertical: 50,
+        width: 230,
+        height: 230,
+        marginVertical: 30,
     },
     title: {
-        fontSize: 25,
+        marginTop: 20,
+        fontSize: 30,
         fontWeight: "bold",
         paddingBottom: 15,
         color: "black",
@@ -67,27 +68,35 @@ const styles = StyleSheet.create({
         lineHeight: 25,
     },
     buttonsContainer: {
-        marginTop: 40,
-        gap: 20,
+        marginTop: 45,
+        gap: 25,
     },
     loginBtn: {
         backgroundColor: "#FFB601",
-        padding: 12,
-        paddingHorizontal: 90,
+        padding: 15,
+        paddingHorizontal: 140,
         borderRadius: 5,
     },
     loginText: {
         color: "#fff",
+        fontSize: 16,
+        fontWeight: "bold",
+        letterSpacing: 2,
+        textAlign: "center",
     },
     signupBtn: {
         borderWidth: 1,
         borderColor: "#FFB601",
-        padding: 12,
-        paddingHorizontal: 90,
+        padding: 15,
+        paddingHorizontal: 140,
         borderRadius: 5,
     },
     signupText: {
         color: "#FFB601",
+        fontSize: 16,
+        fontWeight: "bold",
+        letterSpacing: 2,
+        textAlign: "center",
     }
 })
 

@@ -16,6 +16,9 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
+  const [isBlur, setIsBlur] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -25,27 +28,34 @@ function LoginPage() {
     // e-posta doğrulama regex'i
     let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // e-posta doğrulama işlemi
-    if (emailRegex.test(email)) {
-      console.log("E-posta geçerli");
-      return true;
-    } else {
-      console.log("Geçersiz e-posta adresi");
-      return false;
-    }
+    const isValid = emailRegex.test(email)
+    setIsValidEmail(isValid);
   }
 
   const validatePassword = (password) => {
     if (password.length < 6) {
-      console.log("geçersiz şifre");
+      // console.log("geçersiz şifre");
+      setIsValidPassword(false)
       return false;
     } else {
-      console.log("şifre geçerli");
+      setIsValidPassword(true)
+      // console.log("şifre geçerli");
       return true;
     }
   }
 
   const handleLogin = () => {
-    Alert.alert(email, password)
+    if (isValidEmail && isValidPassword) {
+      Alert.alert(email, password)
+    }
+  }
+
+  const handleFocus = () => {
+    setIsBlur(false);
+  }
+
+  const handleBlur = () => {
+    setIsBlur(true);
   }
 
   return (
@@ -61,32 +71,54 @@ function LoginPage() {
             setEmail(text)
             validateEmail(text)
           }}
-          style={styles.input}
-          placeholder='Enter your email' />
+          style={[
+            styles.input,
+            isBlur ? !isValidEmail && styles.invalidInput : styles.input
+          ]}
+          placeholder='Enter your email'
+          onFocus={handleFocus}
+          onBlur={handleBlur} />
+
+        {
+          isBlur ? !isValidEmail && <Ionicons
+            name="alert-circle-outline"
+            size={27}
+            color="red"
+            style={styles.invalidInputIcon} /> : null
+        }
+
         <TextInput
           value={password}
           onChangeText={text => {
             setPassword(text)
             validatePassword(text)
           }}
-          style={styles.input}
+          style={[
+            styles.input,
+
+            isBlur ? !isValidPassword && styles.invalidInput : styles.input
+          ]}
           placeholder='Enter your password'
           keyboardType='numeric'
-          secureTextEntry={!showPassword} />
+          secureTextEntry={!showPassword}
+          onFocus={handleFocus}
+          onBlur={handleBlur} />
+
         <TouchableOpacity
           style={styles.eye}
           onPress={togglePasswordVisibility}>
           <Ionicons
             name={showPassword ? "eye-outline" : "eye-off-outline"}
-            size={27}
+            size={28}
             color='grey' />
         </TouchableOpacity>
+
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
           style={styles.loginBtn}
           onPress={handleLogin}>
-          <Text style={styles.loginText}>Login</Text>
+          <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
         <TouchableOpacity>
           <Text style={styles.forgotText}>Forgot Password?</Text>
@@ -99,7 +131,7 @@ function LoginPage() {
       </View>
       <View>
         <Text style={styles.footer}>Already have an account?
-          <Text style={{ color: "#CB7900" }}> Sign up</Text>
+          <Text style={{ color: "#CB7900", fontWeight: "bold" }}> Sign up</Text>
         </Text>
       </View>
     </SafeAreaView>
@@ -132,6 +164,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderBottomWidth: 1,
     padding: 10,
+    fontSize: 18,
   },
   buttonsContainer: {
     marginTop: 40,
@@ -147,6 +180,9 @@ const styles = StyleSheet.create({
   loginText: {
     color: "#fff",
     textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
+    letterSpacing: 2,
   },
   eye: {
     position: "absolute",
@@ -160,10 +196,10 @@ const styles = StyleSheet.create({
   logos: {
     alignItems: "center",
     margin: 50,
-    columnGap: 25,
+    columnGap: 30,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   logo: {
     width: 40,
@@ -172,6 +208,15 @@ const styles = StyleSheet.create({
   footer: {
     textAlign: "center",
     top: 20,
+  },
+  invalidInput: {
+    borderBottomColor: "red",
+    borderBottomWidth: 1,
+  },
+  invalidInputIcon: {
+    position: "absolute",
+    right: 13,
+    top: 0,
   }
 })
 
