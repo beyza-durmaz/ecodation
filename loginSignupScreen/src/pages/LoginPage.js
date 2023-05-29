@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -20,6 +21,33 @@ function LoginPage() {
     setShowPassword(!showPassword);
   }
 
+  const validateEmail = (email) => {
+    // e-posta doğrulama regex'i
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // e-posta doğrulama işlemi
+    if (emailRegex.test(email)) {
+      console.log("E-posta geçerli");
+      return true;
+    } else {
+      console.log("Geçersiz e-posta adresi");
+      return false;
+    }
+  }
+
+  const validatePassword = (password) => {
+    if (password.length < 6) {
+      console.log("geçersiz şifre");
+      return false;
+    } else {
+      console.log("şifre geçerli");
+      return true;
+    }
+  }
+
+  const handleLogin = () => {
+    Alert.alert(email, password)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -29,15 +57,22 @@ function LoginPage() {
       <View style={styles.inputsContainer} >
         <TextInput
           value={email}
-          onChangeText={setEmail}
+          onChangeText={text => {
+            setEmail(text)
+            validateEmail(text)
+          }}
           style={styles.input}
           placeholder='Enter your email' />
         <TextInput
           value={password}
-          onChangeText={setPassword}
+          onChangeText={text => {
+            setPassword(text)
+            validatePassword(text)
+          }}
           style={styles.input}
           placeholder='Enter your password'
-          keyboardType='numeric' />
+          keyboardType='numeric'
+          secureTextEntry={!showPassword} />
         <TouchableOpacity
           style={styles.eye}
           onPress={togglePasswordVisibility}>
@@ -48,7 +83,9 @@ function LoginPage() {
         </TouchableOpacity>
       </View>
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.loginBtn}>
+        <TouchableOpacity
+          style={styles.loginBtn}
+          onPress={handleLogin}>
           <Text style={styles.loginText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity>
@@ -62,7 +99,7 @@ function LoginPage() {
       </View>
       <View>
         <Text style={styles.footer}>Already have an account?
-          <Text style={{color: "#CB7900"}}> Sign up</Text>
+          <Text style={{ color: "#CB7900" }}> Sign up</Text>
         </Text>
       </View>
     </SafeAreaView>
