@@ -47,6 +47,10 @@ function LoginPage() {
   const handleLogin = () => {
     if (isValidEmail && isValidPassword) {
       Alert.alert(email, password)
+    } else if (!isValidEmail || !isValidPassword) {
+      Alert.alert("Enter valid email and password!")
+    } else {
+      Alert.alert("Enter your email and password!")
     }
   }
 
@@ -95,7 +99,6 @@ function LoginPage() {
           }}
           style={[
             styles.input,
-
             isBlur ? !isValidPassword && styles.invalidInput : styles.input
           ]}
           placeholder='Enter your password'
