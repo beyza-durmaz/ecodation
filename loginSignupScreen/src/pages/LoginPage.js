@@ -10,6 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 
 function LoginPage() {
@@ -19,6 +20,12 @@ function LoginPage() {
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isBlur, setIsBlur] = useState(false);
+
+  const navigation = useNavigation();
+
+  const goToSignUpPage = () => {
+    navigation.navigate("SignupPage");
+  }
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -133,7 +140,7 @@ function LoginPage() {
         <Image style={styles.logo} source={require("../assets/apple.png")} />
       </View>
       <View>
-        <Text style={styles.footer}>Already have an account?
+        <Text style={styles.footer} onPress={goToSignUpPage}>Don't have an account?
           <Text style={{ color: "#CB7900", fontWeight: "bold" }}> Sign up</Text>
         </Text>
       </View>

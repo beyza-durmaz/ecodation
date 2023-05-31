@@ -16,6 +16,10 @@ function WelcomePage() {
         navigation.navigate("LoginPage")
     }
 
+    const goToSignupPage = () => {
+        navigation.navigate("SignupPage");
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.inner_container}>
@@ -31,7 +35,9 @@ function WelcomePage() {
                     onPress={goToLoginPage}>
                     <Text style={styles.loginText}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.signupBtn}>
+                <TouchableOpacity
+                    style={styles.signupBtn}
+                    onPress={goToSignupPage}>
                     <Text style={styles.signupText}>Signup</Text>
                 </TouchableOpacity>
             </View>
