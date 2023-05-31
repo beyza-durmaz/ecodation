@@ -84,7 +84,7 @@ function SignupPage() {
             styles.input,
             isBlur ? !username && styles.invalidInput : styles.input
           ]}
-          placeholder='Enter your username'
+          placeholder='Username'
           onFocus={handleFocus}
           onBlur={handleBlur} />
         <TextInput
@@ -97,7 +97,7 @@ function SignupPage() {
             styles.input,
             isBlur ? !isValidEmail && styles.invalidInput : styles.input
           ]}
-          placeholder='Enter your email'
+          placeholder='Email'
           onFocus={handleFocus}
           onBlur={handleBlur} />
 
@@ -119,7 +119,7 @@ function SignupPage() {
             styles.input,
             isBlur ? !isValidPassword && styles.invalidInput : styles.input
           ]}
-          placeholder='Enter your password'
+          placeholder='Password'
           keyboardType='numeric'
           secureTextEntry={!showPassword}
           onFocus={handleFocus}
