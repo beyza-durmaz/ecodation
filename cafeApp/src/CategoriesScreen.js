@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { TouchableWithoutFeedback, Image, StyleSheet, Text, View, ScrollView } from 'react-native';
+import {
+  TouchableWithoutFeedback,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Dimensions
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
@@ -29,6 +37,10 @@ function CategoriesScreen() {
     navigation.navigate("Product", { categoryID });
   };
 
+  // Ekranın genişliğini ve yüksekliğini al
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
+
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -47,9 +59,9 @@ function CategoriesScreen() {
                 key={index}
                 onPress={() => handleCategoryPress(item["ID_KATEGORI"])}>
                 <View
-                  style={styles.mainContainer}
+                  style={[styles.mainContainer, { width: windowWidth * 0.95 }]}
                   key={item["ID_KATEGORI"]}>
-                  <Image source={{ uri: item["GORSEL_URL"] }} style={styles.img} />
+                  <Image source={{ uri: item["GORSEL_URL"] }} style={[styles.img, { height: windowWidth * 0.5 }]} />
                   <Text style={styles.label}>{item["ADI"]}</Text>
                 </View>
               </TouchableWithoutFeedback>
@@ -102,7 +114,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignItems: "flex-end",
     justifyContent: "flex-end",
-    width: 336,
+    // width: 336,
     marginVertical: 20,
     borderRadius: 10,
     shadowColor: "#000",

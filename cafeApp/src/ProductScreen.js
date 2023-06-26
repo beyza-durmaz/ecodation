@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Text, TouchableOpacity, Image, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { View, TextInput, StyleSheet, Text, Dimensions, Image, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 
@@ -26,6 +26,10 @@ function ProductScreen({ route }) {
         getData()
     }, [categoryID]);
 
+    // Ekranın genişliğini ve yüksekliğini al
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
+
     return (
         <ScrollView>
             <View style={styles.container}>
@@ -35,15 +39,15 @@ function ProductScreen({ route }) {
                 </View>
                 <View style={styles.inputContainer}>
                     <Ionicons name='search-outline' size={26} color="gray" style={styles.srcIcon} />
-                    <TextInput placeholder='Favori Kahveni Ara..' style={styles.search} />
+                    <TextInput placeholder='Favori Kahveni Ara..' style={[styles.search, { width: windowWidth * 0.92 }]} />
                 </View>
-                <View style={styles.main}>
+                <View style={[styles.main, { gap: windowWidth * 0.02 }]}>
                     {
                         list.length > 0 ? list.map((item, index) => (
                             <TouchableWithoutFeedback
                                 key={index}>
                                 <View
-                                    style={styles.mainContainer}
+                                    style={[styles.mainContainer, { width: windowWidth * 0.45, height: windowWidth * 0.6 }]}
                                     key={item["ID_KATEGORI"]}>
                                     <View style={styles.imageContainer}>
                                         <Image
@@ -103,7 +107,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "space-between",
-        gap: 20,
     },
     mainContainer: {
         height: 250,
