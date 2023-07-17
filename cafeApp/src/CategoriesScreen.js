@@ -37,9 +37,7 @@ function CategoriesScreen() {
     navigation.navigate("Product", { categoryID });
   };
 
-  // Ekranın genişliğini ve yüksekliğini al
   const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
 
   return (
     <ScrollView>

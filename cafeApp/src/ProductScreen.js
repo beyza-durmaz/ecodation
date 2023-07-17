@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Text, Dimensions, Image, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import {
+    View,
+    TextInput,
+    StyleSheet,
+    Text,
+    Dimensions,
+    Image,
+    ScrollView,
+    TouchableWithoutFeedback,
+    TouchableOpacity
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 function ProductScreen({ route }) {
     const [list, setList] = useState([]);
 
     const { categoryID } = route.params;
+
+    const navigation = useNavigation();
 
     const baseUrl = "http://www.kursadozdemir.com";
 
@@ -26,9 +39,11 @@ function ProductScreen({ route }) {
         getData()
     }, [categoryID]);
 
-    // Ekranın genişliğini ve yüksekliğini al
     const windowWidth = Dimensions.get('window').width;
-    const windowHeight = Dimensions.get('window').height;
+
+    const navigateToProductDetail = (item) => {
+        navigation.navigate("ProductDetail", { product: item })
+    }
 
     return (
         <ScrollView>
@@ -41,7 +56,7 @@ function ProductScreen({ route }) {
                     <Ionicons name='search-outline' size={26} color="gray" style={styles.srcIcon} />
                     <TextInput placeholder='Favori Kahveni Ara..' style={[styles.search, { width: windowWidth * 0.92 }]} />
                 </View>
-                <View style={[styles.main, { gap: windowWidth * 0.02 }]}>
+                <View style={[styles.main, { gap: windowWidth * 0.01 }]}>
                     {
                         list.length > 0 ? list.map((item, index) => (
                             <TouchableWithoutFeedback
@@ -60,7 +75,10 @@ function ProductScreen({ route }) {
                                         <Text style={styles.desc}>{item["ACIKLAMA"]}</Text>
                                         <View style={styles.bottomSection}>
                                             <Text style={styles.price}>{item["FIYAT"]} TL</Text>
-                                            <Ionicons name='add-circle' size={40} color="green" />
+                                            <TouchableOpacity
+                                                onPress={() => navigateToProductDetail(item)}>
+                                                <Ionicons name='arrow-forward-circle' size={40} color="green" />
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                 </View>
@@ -123,7 +141,7 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     imageContainer: {
-        flex: 2,
+        flex: 1,
         alignItems: "center",
         justifyContent: "center",
     },

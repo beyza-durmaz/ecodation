@@ -109,16 +109,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   title: {
-    fontSize: 28,
+    fontSize: 25,
     color: "green",
   },
   director: {
     letterSpacing: 2,
-    fontSize: 18,
+    fontSize: 15,
     marginTop: 5,
   },
   rating: {
-    fontSize: 30,
+    fontSize: 25,
     marginTop: 20,
     color: "black"
   },
